@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { backupMongoDB } from "../lib/mongodb";
 import { backupBlobs } from "../lib/blob";
 import { createBackupZip } from "../lib/zip";
-import { uploadToGoogleDrive } from "../lib/gdrive";
+import { uploadBackup } from "../lib/backup-storage";
 
 // Extend timeout to 60 seconds for hobby plan
 export const config = {
@@ -26,10 +26,10 @@ interface BackupResult {
     totalFiles: number;
     totalSize: number;
   };
-  googleDrive?: {
+  backup?: {
     fileId: string;
     fileName: string;
-    webViewLink: string;
+    url: string;
   };
   error?: string;
   durationMs?: number;
@@ -103,15 +103,15 @@ export default async function handler(
     };
     console.log(`ZIP created: ${zipResult.fileName}, ${formatBytes(zipResult.totalSize)}`);
 
-    // Step 4: Upload to Google Drive
-    console.log("Uploading to Google Drive...");
-    const uploadResult = await uploadToGoogleDrive(zipResult.buffer, zipResult.fileName);
-    result.googleDrive = {
+    // Step 4: Upload to Vercel Blob backup store
+    console.log("Uploading backup...");
+    const uploadResult = await uploadBackup(zipResult.buffer, zipResult.fileName);
+    result.backup = {
       fileId: uploadResult.fileId,
       fileName: uploadResult.fileName,
-      webViewLink: uploadResult.webViewLink,
+      url: uploadResult.webViewLink,
     };
-    console.log(`Uploaded to Google Drive: ${uploadResult.webViewLink}`);
+    console.log(`Backup uploaded: ${uploadResult.webViewLink}`);
 
     result.success = true;
     result.durationMs = Date.now() - startTime;
