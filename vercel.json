@@ -1,7 +1,11 @@
 {
-  "buildCommand": "npm install",
-  "outputDirectory": ".",
-  "framework": null,
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "crons": [
     {
       "path": "/api/backup",
