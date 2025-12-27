@@ -1,4 +1,7 @@
 {
+  "buildCommand": "npm install",
+  "outputDirectory": ".",
+  "framework": null,
   "crons": [
     {
       "path": "/api/backup",
