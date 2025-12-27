@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { backupMongoDB } from "../lib/mongodb";
-import { backupBlobs } from "../lib/blob";
-import { createBackupZip } from "../lib/zip";
-import { uploadBackup } from "../lib/backup-storage";
+import { backupMongoDB } from "../lib/mongodb.js";
+import { backupBlobs } from "../lib/blob.js";
+import { createBackupZip } from "../lib/zip.js";
+import { uploadBackup } from "../lib/backup-storage.js";
 
 // Extend timeout to 60 seconds for hobby plan
 export const config = {

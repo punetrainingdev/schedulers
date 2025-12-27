@@ -1,7 +1,7 @@
 import archiver from "archiver";
 import { PassThrough } from "stream";
-import type { CollectionBackup } from "./mongodb";
-import type { BlobBackup } from "./blob";
+import type { CollectionBackup } from "./mongodb.js";
+import type { BlobBackup } from "./blob.js";
 
 export interface ZipResult {
   buffer: Buffer;

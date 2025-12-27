@@ -1,8 +1,8 @@
 import "dotenv/config";
-import { backupMongoDB } from "./lib/mongodb";
-import { backupBlobs } from "./lib/blob";
-import { createBackupZip } from "./lib/zip";
-import { uploadBackup } from "./lib/backup-storage";
+import { backupMongoDB } from "./lib/mongodb.js";
+import { backupBlobs } from "./lib/blob.js";
+import { createBackupZip } from "./lib/zip.js";
+import { uploadBackup } from "./lib/backup-storage.js";
 
 async function testBackup() {
   console.log("Starting backup test...\n");
